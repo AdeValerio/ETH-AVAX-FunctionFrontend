@@ -9,6 +9,4 @@ This is a submission under the ETH + AVAX Module 2 Smart Contract Management Pro
 Andre Martee Valerio
 [@Dr_EanValerio](https://twitter.com/Dr_EanValerio)
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
