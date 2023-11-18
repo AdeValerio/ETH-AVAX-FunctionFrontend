@@ -10,6 +10,7 @@ export default function HomePage() {
 
   const [transactionHistory, setHistory] = useState([]);
   const [transactionCount, setCount] = useState(0);
+  const [count, setbalanceCount] = useState(0);
 
 
   const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
@@ -65,20 +66,20 @@ export default function HomePage() {
 
   const deposit = async() => {
     if (atm) {
-      let tx = await atm.deposit(1);
+      let tx = await atm.deposit(count);
       await tx.wait()
       getBalance();
-      updateHistory("Deposit", "+1");
+      updateHistory("Deposit", count);
 
     }
   }
 
   const withdraw = async() => {
     if (atm) {
-      let tx = await atm.withdraw(1);
+      let tx = await atm.withdraw(count);
       await tx.wait()
       getBalance();
-      updateHistory("Withdrawal", "-1");
+      updateHistory("Withdrawal", count);
     }
   }
 
@@ -90,6 +91,7 @@ export default function HomePage() {
       updateHistory("Withdrawal", `-${balance}`);
     }
   }
+
 
   const updateHistory = (status, amount) => {
 
@@ -142,8 +144,20 @@ export default function HomePage() {
       <div>
         <p>Your Account: {account}</p>
         <p>Your Balance: {balance}</p>
-        <button onClick={deposit}>Deposit 1 ETH</button>
-        <button onClick={withdraw}>Withdraw 1 ETH</button>
+        <p>Set Value for Deposit and Withdrawal:</p>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          placeholder="Amount for Deposit and Withdrawal:"
+          value={count}
+          onChange={(e) => setbalanceCount(e.target.value)}
+          
+        />
+        <br></br>
+        <br></br>
+        <button onClick={deposit}>Deposit ETH</button>
+        <button onClick={withdraw}>Withdraw ETH</button>
         <button onClick={withdrawAll}>Withdraw All</button>
         {showTransactionHistory()}
       </div>
@@ -154,11 +168,22 @@ export default function HomePage() {
 
   return (
     <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM!</h1></header>
+      <header><h1>Welcome to the Andre ATM!</h1></header>
       {initUser()}
       <style jsx>{`
         .container {
-          text-align: center
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 20px;
+          width: 100%;
+          height: 100vh;
+          border-style: dotted;
+          border-color: blue;
+          background-color: #34ebc6;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          display: flex;
         }
       `}
       </style>
